@@ -15,6 +15,9 @@
           :list="list"
         />
       </v-flex>
+      <v-flex xs4>
+        <NewListForm />
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -22,10 +25,12 @@
 <script>
 import { mapState } from 'vuex'
 import List from '~/components/List'
+import NewListForm from '~/components/NewListForm'
 
 export default {
   components: {
-    List
+    List,
+    NewListForm
   },
   computed: {
     ...mapState({ lists: state => state.lists.data })

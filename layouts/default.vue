@@ -12,7 +12,7 @@
       </v-container>
     </v-content>
     <v-footer
-      :fixed="fixed"
+      fixed
       app
     >
       <span>&copy; 2018</span>

@@ -1,3 +1,5 @@
+import uuidv4 from 'uuid/v4'
+
 export const state = () => ({
   data: [
     { id: 1, body: 'sample_1_1', listId: 1 },
@@ -9,9 +11,19 @@ export const state = () => ({
   ]
 })
 
-export const mutations = {}
+export const mutations = {
+  add(state, payload) {
+    state.data.push(payload)
+  }
+}
 
-export const actions = {}
+export const actions = {
+  add({ commit }, { body, listId }) {
+    const id = uuidv4()
+    const payload = { id, body, listId }
+    commit('add', payload)
+  }
+}
 
 export const getters = {
   cardsByList: state => listId => {
