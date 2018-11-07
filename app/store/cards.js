@@ -16,7 +16,6 @@ export const mutations = {
     state.data.push(payload)
   },
   set(state, { cards, listId }) {
-    console.log(listId)
     state.data = state.data.filter(card => card.listId !== listId)
     const newCards = cards.map(card => {
       return {

@@ -15,14 +15,14 @@
 
 <script>
 export default {
-  data: () => {
+  data() {
     return {
       title: ''
     }
   },
   methods: {
     addList() {
-      this.$store.dispatch('lists/addList', this.title)
+      this.$store.dispatch('lists/add', this.title)
       this.title = ''
     }
   }

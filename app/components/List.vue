@@ -4,29 +4,27 @@
       <div class="headline">{{ list.title }}</div>
     </v-card-title>
     <v-container>
-      <v-layout
-        column
-      >
+      <v-layout column>
         <draggable
           v-model="cards"
-          :options="{group: 'cards'}"
+          :options="draggableOptions"
+          style="min-height: 10px"
         >
           <v-flex
             v-for="card in cards"
             :key="card.id"
+            class="draggable-item"
           >
             <card :card="card" />
           </v-flex>
         </draggable>
       </v-layout>
+      <v-layout>
+        <v-flex>
+          <add-card-form @submit="addCard($event)" />
+        </v-flex>
+      </v-layout>
     </v-container>
-    <v-card-actions>
-      <v-text-field
-        v-model="cardBody"
-        label="Add a task..."
-        @keyup.enter="addCard()"
-      />
-    </v-card-actions>
     <v-card-actions>
       <v-spacer />
       <v-btn
@@ -43,11 +41,13 @@
 import draggable from 'vuedraggable'
 
 import Card from '~/components/Card'
+import AddCardForm from '~/components/AddCardForm'
 
 export default {
   components: {
+    draggable,
     Card,
-    draggable
+    AddCardForm
   },
   props: {
     list: {
@@ -72,12 +72,21 @@ export default {
         }
         this.$store.dispatch('cards/set', payload)
       }
+    },
+    draggableOptions() {
+      return {
+        group: {
+          name: 'cards'
+        },
+        draggable: '.draggable-item',
+        ghostClass: 'ghost'
+      }
     }
   },
   methods: {
-    addCard() {
+    addCard(card) {
       const payload = {
-        body: this.cardBody,
+        body: card.body,
         listId: this.list.id
       }
       this.$store.dispatch('cards/add', payload)
@@ -89,3 +98,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.draggable-item {
+  cursor: pointer;
+}
+.ghost {
+  opacity: 0.4;
+}
+</style>
