@@ -1,8 +1,5 @@
 <template>
   <v-card color="teal lighten-5">
-    <v-card-title>
-      <div class="headline">New List</div>
-    </v-card-title>
     <v-card-actions>
       <v-text-field
         v-model="title"
