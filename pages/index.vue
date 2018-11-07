@@ -24,6 +24,7 @@
 
 <script>
 import { mapState } from 'vuex'
+
 import List from '~/components/List'
 import NewListForm from '~/components/NewListForm'
 

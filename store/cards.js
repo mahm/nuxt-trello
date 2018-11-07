@@ -14,6 +14,17 @@ export const state = () => ({
 export const mutations = {
   add(state, payload) {
     state.data.push(payload)
+  },
+  set(state, { cards, listId }) {
+    console.log(listId)
+    state.data = state.data.filter(card => card.listId !== listId)
+    const newCards = cards.map(card => {
+      return {
+        ...card,
+        listId: listId
+      }
+    })
+    state.data = state.data.concat(newCards)
   }
 }
 
@@ -22,6 +33,9 @@ export const actions = {
     const id = uuidv4()
     const payload = { id, body, listId }
     commit('add', payload)
+  },
+  set({ commit }, payload) {
+    commit('set', payload)
   }
 }
 

@@ -7,12 +7,17 @@
       <v-layout
         column
       >
-        <v-flex
-          v-for="card in cards"
-          :key="card.id"
+        <draggable
+          v-model="cards"
+          :options="{group: 'cards'}"
         >
-          <card :card="card" />
-        </v-flex>
+          <v-flex
+            v-for="card in cards"
+            :key="card.id"
+          >
+            <card :card="card" />
+          </v-flex>
+        </draggable>
       </v-layout>
     </v-container>
     <v-card-actions>
@@ -35,11 +40,14 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
+
 import Card from '~/components/Card'
 
 export default {
   components: {
-    Card
+    Card,
+    draggable
   },
   props: {
     list: {
@@ -53,8 +61,17 @@ export default {
     }
   },
   computed: {
-    cards() {
-      return this.$store.getters['cards/cardsByList'](this.list.id)
+    cards: {
+      get() {
+        return this.$store.getters['cards/cardsByList'](this.list.id)
+      },
+      set(newCards) {
+        const payload = {
+          cards: newCards,
+          listId: this.list.id
+        }
+        this.$store.dispatch('cards/set', payload)
+      }
     }
   },
   methods: {

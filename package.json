@@ -16,6 +16,7 @@
     "cross-env": "^5.2.0",
     "nuxt": "^2.0.0",
     "uuid": "^3.3.2",
+    "vuedraggable": "^2.16.0",
     "vuetify": "^1.2.4"
   },
   "devDependencies": {
